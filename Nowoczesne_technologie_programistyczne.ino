@@ -1,13 +1,10 @@
 #include "Arduino.h"
 #include <TFT_eSPI.h>
+#include <SPI.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
-#include <SPI.h>
 #include "coolverticarg12.h"
-#define TFT_CS         15
-#define TFT_RST        4
-#define TFT_DC         2
 TFT_eSPI tft = TFT_eSPI();
 String message="Nazwa:\nESP32 wiadomosci\nHaslo:\npassword\nIP: 192.168.1.1";
 String processor(const String& var){
@@ -24,6 +21,8 @@ AsyncWebServer  server(80);
 void notFound(AsyncWebServerRequest *request) {
   request->send(404, "text/plain", "Not found");
 }
+const char *ssid = "ESP32 wiadomosci";
+const char *password = "password";
 
 const char* PARAM_INPUT_1 = "message";
 
@@ -40,8 +39,6 @@ const char HTML[] PROGMEM = R"rawliteral(
   </body></html>
 )rawliteral";
 
-const char *ssid = "ESP32 wiadomosci";
-const char *password = "password";
 
 
 void setup(void) {
